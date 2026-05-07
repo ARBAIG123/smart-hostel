@@ -20,12 +20,19 @@ function getNearestSlot() {
     return h * 60 + m;
   });
 
-  let nearest = 0;
+  // Find closest upcoming slot first
+  let nearest = -1;
   let minDiff = Infinity;
   slotMinutes.forEach((mins, i) => {
-    const diff = Math.abs(mins - current);
-    if (diff < minDiff) { minDiff = diff; nearest = i; }
+    const diff = mins - current;
+    if (diff >= -30 && Math.abs(diff) < minDiff) {
+      minDiff = Math.abs(diff);
+      nearest = i;
+    }
   });
+
+  // If no upcoming slot found, use the last slot of the day
+  if (nearest === -1) nearest = slots.length - 1;
 
   return slots[nearest];
 }
