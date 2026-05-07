@@ -7,37 +7,60 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
 
-  <div class="auth-container">
-    <div class="auth-box">
-      <div class="logo">🏨</div>
-      <h1>Smart Hostel</h1>
-      <p class="subtitle">QueueLess + Bed Vacancy System</p>
+  <div class="login-page">
 
-      <div class="tab-switch">
-        <button class="tab-btn active" id="loginTab" onclick="showLogin()">Login</button>
-        <button class="tab-btn" id="signupTab" onclick="showSignup()">Sign Up</button>
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="left-content">
+        <img src="logo.png" alt="VCE Logo" class="college-logo" />
+        <h1 class="college-name">Vardhaman College of Engineering</h1>
+        <p class="college-tagline">Empowering Students with Smart Campus Solutions</p>
+        <div class="feature-list">
+          <div class="feature-item">⏱️ Skip canteen queues</div>
+          <div class="feature-item">🟢 Real-time crowd levels</div>
+          <div class="feature-item">🛏️ Live bed availability</div>
+          <div class="feature-item">📱 Access from anywhere</div>
+        </div>
       </div>
-
-      <!-- Login Form -->
-      <div id="loginForm">
-        <input type="email" id="loginEmail" placeholder="College Email" />
-        <input type="password" id="loginPassword" placeholder="Password" />
-        <button class="primary-btn" onclick="loginUser()">Login</button>
-      </div>
-
-      <!-- Signup Form -->
-      <div id="signupForm" style="display:none;">
-        <input type="text" id="signupName" placeholder="Full Name" />
-        <input type="text" id="signupRoll" placeholder="Roll Number" />
-        <input type="email" id="signupEmail" placeholder="College Email" />
-        <input type="password" id="signupPassword" placeholder="Password" />
-        
-        <button class="primary-btn" onclick="registerUser()">Create Account</button>
-      </div>
-
-      <p id="authMessage" class="message"></p>
     </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="auth-box">
+        <div class="auth-header">
+          <h2>Smart Hostel</h2>
+          <p>QueueLess + Bed Vacancy System</p>
+        </div>
+
+        <div class="tab-switch">
+          <button class="tab-btn active" id="loginTab" onclick="showLogin()">Login</button>
+          <button class="tab-btn" id="signupTab" onclick="showSignup()">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm">
+          <input type="email" id="loginEmail" placeholder="College Email" />
+          <input type="password" id="loginPassword" placeholder="Password" />
+          <button class="primary-btn" onclick="loginUser()">Login</button>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupForm" style="display:none;">
+          <input type="text" id="signupName" placeholder="Full Name" />
+          <input type="text" id="signupRoll" placeholder="Roll Number" />
+          <input type="email" id="signupEmail" placeholder="College Email" />
+          <input type="password" id="signupPassword" placeholder="Password" />
+          <button class="primary-btn" onclick="registerUser()">Create Account</button>
+        </div>
+
+        <p id="authMessage" class="message"></p>
+
+        <p class="footer-note">Smart Hostel © Vardhaman College of Engineering</p>
+      </div>
+    </div>
+
   </div>
 
   <script type="module" src="auth.js"></script>

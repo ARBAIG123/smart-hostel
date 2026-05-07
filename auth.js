@@ -55,3 +55,17 @@ window.loginUser = async () => {
     msg.textContent = e.message;
   }
 }
+window.toggleTheme = () => {
+  document.body.classList.toggle('dark');
+  const btn = document.getElementById('themeToggle');
+  btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// Remember theme on reload
+window.addEventListener('load', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    document.getElementById('themeToggle').textContent = '☀️';
+  }
+});

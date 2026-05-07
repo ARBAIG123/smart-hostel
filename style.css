@@ -2,44 +2,140 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   min-height: 100vh;
+}
+
+/* ===== LOGIN PAGE ===== */
+.login-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* LEFT PANEL */
+.left-panel {
+  flex: 1;
+  background: linear-gradient(160deg, #1a2f5a, #2d5086, #1a3a6b);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.auth-container {
-  width: 100%;
+.left-panel::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+  top: -100px;
+  left: -100px;
+}
+
+.left-panel::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+  bottom: -80px;
+  right: -80px;
+}
+
+.left-content {
+  text-align: center;
+  color: white;
+  z-index: 1;
+}
+
+.college-logo {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: 20px;
+  padding: 10px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.college-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.college-tagline {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 2.5rem;
+  font-style: italic;
+}
+
+.feature-list {
   display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  text-align: left;
+  background: rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.feature-item {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+  flex: 1;
+  background: #f8f9fc;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 3rem 2rem;
 }
 
 .auth-box {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
-  padding: 2.5rem;
   width: 100%;
-  max-width: 420px;
-  text-align: center;
-  color: white;
+  max-width: 400px;
 }
 
-.logo { font-size: 3rem; margin-bottom: 0.5rem; }
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
 
-h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem; }
+.auth-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a2f5a;
+  margin-bottom: 0.3rem;
+}
 
-.subtitle { color: #aaa; font-size: 0.85rem; margin-bottom: 1.5rem; }
+.auth-header p {
+  color: #888;
+  font-size: 0.9rem;
+}
 
 .tab-switch {
   display: flex;
-  background: rgba(255,255,255,0.05);
+  background: #ebebeb;
   border-radius: 10px;
   margin-bottom: 1.5rem;
   overflow: hidden;
+  padding: 4px;
+  gap: 4px;
 }
 
 .tab-btn {
@@ -47,39 +143,41 @@ h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem; }
   padding: 0.6rem;
   border: none;
   background: transparent;
-  color: #aaa;
+  color: #888;
   cursor: pointer;
   font-size: 0.95rem;
+  border-radius: 8px;
   transition: all 0.3s;
 }
 
 .tab-btn.active {
-  background: #4f8ef7;
-  color: white;
-  border-radius: 10px;
+  background: white;
+  color: #1a2f5a;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 input, select {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1rem;
   margin-bottom: 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
-  color: white;
+  border: 1.5px solid #e0e0e0;
+  background: white;
+  color: #333;
   font-size: 0.95rem;
   outline: none;
+  transition: border 0.2s;
 }
 
-input::placeholder { color: #888; }
+input:focus { border-color: #2d5086; }
 
-select option { background: #1a1a2e; color: white; }
+input::placeholder { color: #bbb; }
 
 .primary-btn {
   width: 100%;
   padding: 0.85rem;
-  background: linear-gradient(135deg, #4f8ef7, #6c63ff);
+  background: linear-gradient(135deg, #1a2f5a, #2d5086);
   color: white;
   border: none;
   border-radius: 10px;
@@ -87,15 +185,23 @@ select option { background: #1a1a2e; color: white; }
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.3s;
-  margin-top: 0.5rem;
+  margin-top: 0.3rem;
 }
 
-.primary-btn:hover { opacity: 0.85; }
+.primary-btn:hover { opacity: 0.88; }
 
 .message {
   margin-top: 1rem;
   font-size: 0.85rem;
   color: #f87171;
+  text-align: center;
+}
+
+.footer-note {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: #bbb;
 }
 /* ===== DASHBOARD ===== */
 .dashboard {
@@ -335,3 +441,91 @@ select option { background: #1a1a2e; color: white; }
 
 .admin-slot-card .slot-time { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
 .admin-slot-card .slot-count { font-size: 0.85rem; color: #aaa; }
+/* ===== DARK MODE ===== */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+body.dark .right-panel {
+  background: #1a1a2e;
+}
+
+body.dark .auth-header h2 { color: white; }
+body.dark .auth-header p { color: #aaa; }
+body.dark .tab-btn { color: #aaa; }
+body.dark .tab-btn.active { background: #2d2d44; color: white; }
+body.dark .tab-switch { background: #2d2d44; }
+body.dark input {
+  background: #2d2d44;
+  border-color: #3d3d5c;
+  color: white;
+}
+body.dark input::placeholder { color: #666; }
+body.dark .footer-note { color: #555; }
+/* ===== QR PAGE ===== */
+.qr-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.qr-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  max-width: 340px;
+  width: 100%;
+}
+
+.qr-user-info {
+  margin-bottom: 1.5rem;
+}
+
+.qr-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a2f5a;
+  margin-bottom: 0.3rem;
+}
+
+.qr-roll {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+#qrCode {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+#qrCode canvas {
+  border-radius: 12px;
+}
+
+.qr-hint {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-top: 1rem;
+}
+
+.qr-status {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4ade80;
+}

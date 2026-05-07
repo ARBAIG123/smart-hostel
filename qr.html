@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Hostel | My QR Code</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+  <div class="dashboard">
+    <nav class="navbar">
+      <div class="nav-logo">🏨 Smart Hostel</div>
+      <div class="nav-links">
+        <a href="dashboard.html">🍽️ Canteen</a>
+        <a href="beds.html">🛏️ Beds</a>
+        <button class="logout-btn" onclick="logoutUser()">Logout</button>
+      </div>
+    </nav>
+
+    <div class="dash-header">
+      <h1>📱 My Check-in QR Code</h1>
+      <p>Show this at the canteen to check in</p>
+    </div>
+
+    <div class="qr-container">
+      <div class="qr-card">
+        <div class="qr-user-info">
+          <p class="qr-name" id="qrName">Loading...</p>
+          <p class="qr-roll" id="qrRoll"></p>
+        </div>
+        <div id="qrCode"></div>
+        <p class="qr-hint">Scan this QR code at the canteen entry</p>
+        <div class="qr-status" id="qrStatus"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="qr.js"></script>
+</body>
+</html>
