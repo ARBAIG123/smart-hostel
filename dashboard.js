@@ -15,9 +15,17 @@ onAuthStateChanged(auth, async (user) => {
   if (userDoc.exists()) {
     document.getElementById('welcomeUser').textContent = `👋 ${userDoc.data().name}`;
     
-    // If already booked, show locked message
-    if (userDoc.data().selectedSlot) {
-      showLockedSlot(userDoc.data().selectedSlot);
+    const data = userDoc.data();
+    const today = new Date().toDateString();
+    
+    // If slot was booked on a previous day, reset it
+    if (data.selectedSlot && data.slotDate !== today) {
+      await updateDoc(doc(db, "users", user.uid), { 
+        selectedSlot: null, 
+        slotDate: null 
+      });
+    } else if (data.selectedSlot && data.slotDate === today) {
+      showLockedSlot(data.selectedSlot);
       return;
     }
   }
@@ -102,10 +110,14 @@ window.confirmSlot = async () => {
   const msg = document.getElementById('dashMessage');
   try {
     await updateDoc(doc(db, "slots", selectedSlot), { count: increment(1) });
-    await updateDoc(doc(db, "users", currentUser.uid), { selectedSlot: selectedSlot });
+    await updateDoc(doc(db, "users", currentUser.uid), { 
+      selectedSlot: selectedSlot,
+      slotDate: new Date().toDateString()
+    });
     msg.style.color = '#4ade80';
     msg.textContent = `✅ Checked in for ${selectedSlot}!`;
     document.getElementById('confirmBox').style.display = 'none';
+    showLockedSlot(selectedSlot);
   } catch(e) {
     msg.textContent = e.message;
   }
