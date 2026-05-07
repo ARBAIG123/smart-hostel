@@ -529,3 +529,53 @@ body.dark .footer-note { color: #555; }
   font-weight: 600;
   color: #4ade80;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    padding: 2rem 1.5rem;
+  }
+
+  .college-logo {
+    width: 90px;
+    height: 90px;
+  }
+
+  .college-name {
+    font-size: 1.2rem;
+  }
+
+  .feature-list {
+    display: none;
+  }
+
+  .right-panel {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-box {
+    max-width: 100%;
+  }
+
+  .slots-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .navbar {
+    padding: 0.8rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-links {
+    gap: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .summary-bar {
+    gap: 1rem;
+  }
+}
