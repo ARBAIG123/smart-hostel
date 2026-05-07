@@ -80,6 +80,7 @@ window.confirmSlot = async () => {
   const msg = document.getElementById('dashMessage');
   try {
     await updateDoc(doc(db, "slots", selectedSlot), { count: increment(1) });
+    await updateDoc(doc(db, "users", currentUser.uid), { selectedSlot: selectedSlot });
     msg.style.color = '#4ade80';
     msg.textContent = `✅ Checked in for ${selectedSlot}!`;
     document.getElementById('confirmBox').style.display = 'none';

@@ -74,7 +74,6 @@ async function processRollNumber(rollNumber, slot) {
   const hint = document.getElementById('scannerHint');
 
   try {
-    // Find student by roll number
     const q = query(collection(db, "users"), where("roll", "==", rollNumber));
     const snap = await getDocs(q);
 
@@ -86,13 +85,21 @@ async function processRollNumber(rollNumber, slot) {
       resultSlot.style.color = '#f87171';
     } else {
       const student = snap.docs[0].data();
-      await updateDoc(doc(db, "slots", slot), { count: increment(1) });
+      const bookedSlot = student.selectedSlot;
 
-      resultIcon.textContent = '✅';
-      resultName.textContent = student.name;
-      resultRoll.textContent = `Roll: ${student.roll}`;
-      resultSlot.textContent = `Checked in for ${slot}`;
-      resultSlot.style.color = '#4ade80';
+      if (!bookedSlot) {
+        resultIcon.textContent = '⚠️';
+        resultName.textContent = student.name;
+        resultRoll.textContent = `Roll: ${student.roll}`;
+        resultSlot.textContent = 'No slot selected — ask student to book on app';
+        resultSlot.style.color = '#fbbf24';
+      } else {
+        resultIcon.textContent = '✅';
+        resultName.textContent = student.name;
+        resultRoll.textContent = `Roll: ${student.roll}`;
+        resultSlot.textContent = `Booked slot: ${bookedSlot}`;
+        resultSlot.style.color = '#4ade80';
+      }
     }
 
     hint.style.display = 'none';
