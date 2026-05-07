@@ -579,3 +579,67 @@ body.dark .footer-note { color: #555; }
     gap: 1rem;
   }
 }
+/* ===== SCANNER PAGE ===== */
+.scanner-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+.current-slot-banner {
+  background: rgba(79, 142, 247, 0.15);
+  border: 1px solid #4f8ef7;
+  border-radius: 12px;
+  padding: 0.8rem 1.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.scanner-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+#scannerView {
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.scan-result {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.result-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.result-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.3rem;
+}
+
+.result-roll {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.result-slot {
+  color: #4ade80;
+  font-size: 1rem;
+  font-weight: 600;
+}

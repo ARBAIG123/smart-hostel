@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Hostel | Canteen Scanner</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body>
+
+  <div class="dashboard">
+    <nav class="navbar">
+      <div class="nav-logo">🏨 Smart Hostel | Scanner</div>
+      <div class="nav-links">
+        <a href="admin.html">⚙️ Admin</a>
+        <button class="logout-btn" onclick="logoutUser()">Logout</button>
+      </div>
+    </nav>
+
+    <div class="dash-header">
+      <h1>📷 Canteen ID Scanner</h1>
+      <p>Scan student ID card barcode to check them in</p>
+    </div>
+
+    <div class="scanner-container">
+
+      <!-- Current Slot Info -->
+      <div class="current-slot-banner">
+        ⏰ Current slot: <strong id="currentSlotText">Detecting...</strong>
+      </div>
+
+      <!-- Scanner Box -->
+      <div class="scanner-card">
+        <div id="scannerView"></div>
+        <p class="qr-hint" id="scannerHint">Point camera at student ID card barcode</p>
+      </div>
+
+      <!-- Result Box -->
+      <div class="scan-result" id="scanResult" style="display:none;">
+        <div class="result-icon" id="resultIcon">✅</div>
+        <p class="result-name" id="resultName"></p>
+        <p class="result-roll" id="resultRoll"></p>
+        <p class="result-slot" id="resultSlot"></p>
+        <button class="primary-btn" style="max-width:200px;margin:1rem auto;" onclick="resetScanner()">Scan Next</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="scanner.js"></script>
+</body>
+</html>
