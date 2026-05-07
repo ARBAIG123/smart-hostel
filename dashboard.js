@@ -14,11 +14,33 @@ onAuthStateChanged(auth, async (user) => {
   const userDoc = await getDoc(doc(db, "users", user.uid));
   if (userDoc.exists()) {
     document.getElementById('welcomeUser').textContent = `👋 ${userDoc.data().name}`;
+    
+    // If already booked, show locked message
+    if (userDoc.data().selectedSlot) {
+      showLockedSlot(userDoc.data().selectedSlot);
+      return;
+    }
   }
   initSlots();
   listenToSlots();
 });
-
+function showLockedSlot(slot) {
+  initSlots();
+  listenToSlots();
+  const msg = document.getElementById('dashMessage');
+  msg.style.color = '#4ade80';
+  msg.textContent = `✅ You have already booked: ${slot}. Slot cannot be changed.`;
+  document.getElementById('confirmBox').style.display = 'none';
+  
+  // Disable all slot cards
+  setTimeout(() => {
+    document.querySelectorAll('.slot-card').forEach(card => {
+      card.style.cursor = 'not-allowed';
+      card.style.opacity = '0.5';
+      card.onclick = null;
+    });
+  }, 2000);
+}
 async function initSlots() {
   for (const slot of slots) {
     const ref = doc(db, "slots", slot);
