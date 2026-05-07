@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Hostel | Bed Vacancy</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <div class="dashboard">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-logo">🏨 Smart Hostel</div>
+      <div class="nav-links">
+        <a href="dashboard.html">🍽️ Canteen Queue</a>
+        <button class="logout-btn" onclick="logoutUser()">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="dash-header">
+      <h1>🛏️ Bed Vacancy</h1>
+      <p>Real-time room-wise bed availability</p>
+    </div>
+
+    <!-- Summary Bar -->
+    <div class="summary-bar">
+      <div class="summary-card">
+        <span id="totalBeds">0</span>
+        <label>Total Beds</label>
+      </div>
+      <div class="summary-card">
+        <span id="availableBeds" style="color:#4ade80;">0</span>
+        <label>Available</label>
+      </div>
+      <div class="summary-card">
+        <span id="occupiedBeds" style="color:#f87171;">0</span>
+        <label>Occupied</label>
+      </div>
+    </div>
+
+    <!-- Rooms Grid -->
+    <div class="slots-grid" id="roomsGrid"></div>
+
+  </div>
+
+  <script type="module" src="beds.js"></script>
+</body>
+</html>

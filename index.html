@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Hostel | Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-box">
+      <div class="logo">🏨</div>
+      <h1>Smart Hostel</h1>
+      <p class="subtitle">QueueLess + Bed Vacancy System</p>
+
+      <div class="tab-switch">
+        <button class="tab-btn active" id="loginTab" onclick="showLogin()">Login</button>
+        <button class="tab-btn" id="signupTab" onclick="showSignup()">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm">
+        <input type="email" id="loginEmail" placeholder="College Email" />
+        <input type="password" id="loginPassword" placeholder="Password" />
+        <button class="primary-btn" onclick="loginUser()">Login</button>
+      </div>
+
+      <!-- Signup Form -->
+      <div id="signupForm" style="display:none;">
+        <input type="text" id="signupName" placeholder="Full Name" />
+        <input type="text" id="signupRoll" placeholder="Roll Number" />
+        <input type="email" id="signupEmail" placeholder="College Email" />
+        <input type="password" id="signupPassword" placeholder="Password" />
+        
+        <button class="primary-btn" onclick="registerUser()">Create Account</button>
+      </div>
+
+      <p id="authMessage" class="message"></p>
+    </div>
+  </div>
+
+  <script type="module" src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Hostel | Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <div class="dashboard">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-logo">🏨 Smart Hostel</div>
+      <div class="nav-links">
+        <span id="welcomeUser"></span>
+        <a href="beds.html">🛏️ Bed Vacancy</a>
+        <button class="logout-btn" onclick="logoutUser()">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="dash-header">
+      <h1>🍽️ Canteen Queue System</h1>
+      <p>Select your preferred time slot and check crowd level</p>
+    </div>
+
+    <!-- Best Time Banner -->
+    <div class="best-time-banner" id="bestTimeBanner">
+      ⭐ Best time to visit: <strong id="bestTimeText">Loading...</strong>
+    </div>
+
+    <!-- Time Slots -->
+    <div class="slots-grid" id="slotsGrid"></div>
+
+    <!-- Selected Slot Confirmation -->
+    <div class="confirm-box" id="confirmBox" style="display:none;">
+      <p>You selected: <strong id="selectedSlotText"></strong></p>
+      <button class="primary-btn" onclick="confirmSlot()">✅ Confirm Check-in</button>
+      <button class="secondary-btn" onclick="cancelSlot()">Cancel</button>
+    </div>
+
+    <p id="dashMessage" class="message" style="text-align:center;"></p>
+
+  </div>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>
