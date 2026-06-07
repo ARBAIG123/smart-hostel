@@ -37,10 +37,30 @@
 
     <!-- Confirm / Cancel Box -->
     <div class="confirm-box" id="confirmBox" style="display:none;">
-      <p>You selected: <strong id="selectedSlotText"></strong></p>
-      <button class="primary-btn" onclick="confirmSlot()">✅ Confirm Check-in</button>
-      <button class="secondary-btn" onclick="cancelSlot()">✖ Cancel Selection</button>
-    </div>
+
+  <p>
+    You selected:
+    <strong id="selectedSlotText"></strong>
+  </p>
+
+  <div class="confirm-actions">
+
+    <button
+      class="primary-btn"
+      onclick="confirmSlot()">
+      ✔ Confirm Check-in
+    </button>
+
+    <button
+      id="cancelBtn"
+      class="secondary-btn"
+      onclick="cancelSlot()">
+      ✖ Cancel Slot
+    </button>
+
+  </div>
+
+</div>
 
     <p id="dashMessage" class="message" style="text-align:center;"></p>
 
