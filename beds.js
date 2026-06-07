@@ -19,16 +19,24 @@ const rooms = [
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) { window.location.href = 'index.html'; return; }
+
+  // show name in navbar
+  const userDoc = await getDoc(doc(db, "users", user.uid));
+  if (userDoc.exists()) {
+    document.getElementById('welcomeUser').textContent = `👋 ${userDoc.data().name}`;
+  }
+
   initRooms();
   listenToRooms();
 });
 
 async function initRooms() {
   for (const room of rooms) {
-    const ref = doc(db, "rooms", room.id);
+    const ref  = doc(db, "rooms", room.id);
     const snap = await getDoc(ref);
     if (!snap.exists()) {
-      await setDoc(ref, { available: true, floor: room.floor });
+      // beds: array of 4 booleans (true = occupied)
+      await setDoc(ref, { available: true, floor: room.floor, beds: [false, false, false, false] });
     }
   }
 }
@@ -44,32 +52,46 @@ function listenToRooms() {
     grid.appendChild(card);
 
     onSnapshot(doc(db, "rooms", room.id), (snap) => {
-      const data = snap.data();
+      const data      = snap.data();
       const available = data?.available ?? true;
+      // support both old boolean model and new beds-array model
+      const beds      = data?.beds ?? (available ? [false,false,false,false] : [true,true,true,true]);
+      const vacantCount = beds.filter(b => !b).length;
+
       card.className = `room-card ${available ? 'available' : 'full'}`;
+
+      const dots = beds.map(occupied =>
+        `<div class="bed-dot ${occupied ? 'occupied' : 'vacant'}"></div>`
+      ).join('');
+
       card.innerHTML = `
         <div class="room-number">Room ${room.id}</div>
         <div class="room-floor">${room.floor}</div>
+        <div class="bed-dots">${dots}</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-bottom:6px;">
+          ${beds.filter(b=>b).length}/4 beds occupied
+        </div>
         <span class="room-status ${available ? 'status-available' : 'status-full'}">
-          ${available ? '🟢 Available' : '🔴 Full'}
+          ${available ? `🟢 ${vacantCount} Vacant` : '🔴 Full'}
         </span>
       `;
+
       updateSummary();
     });
   });
 }
 
 function updateSummary() {
-  const cards = document.querySelectorAll('.room-card');
-  const total = cards.length;
+  const total     = rooms.length;
   const available = document.querySelectorAll('.room-card.available').length;
-  const occupied = total - available;
-  document.getElementById('totalBeds').textContent = total;
-  document.getElementById('availableBeds').textContent = available;
-  document.getElementById('occupiedBeds').textContent = occupied;
+  const full      = total - available;
+
+  document.getElementById('totalRooms').textContent     = total;
+  document.getElementById('availableRooms').textContent = available;
+  document.getElementById('occupiedRooms').textContent  = full;
 }
 
 window.logoutUser = async () => {
   await signOut(auth);
   window.location.href = 'index.html';
-}
+};

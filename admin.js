@@ -1,6 +1,6 @@
 import { auth, db } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
-import { doc, getDoc, onSnapshot, updateDoc, collection, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+import { doc, getDoc, onSnapshot, updateDoc, writeBatch } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
 const rooms = [
   { id: "101", floor: "Floor 1" },
@@ -33,13 +33,11 @@ onAuthStateChanged(auth, async (user) => {
 function loadAdminRooms() {
   const grid = document.getElementById('adminRoomsGrid');
   grid.innerHTML = '';
-
   rooms.forEach(room => {
     const card = document.createElement('div');
     card.className = 'admin-room-card';
     card.id = `admin-room-${room.id}`;
     grid.appendChild(card);
-
     onSnapshot(doc(db, "rooms", room.id), (snap) => {
       const available = snap.data()?.available ?? true;
       card.className = `admin-room-card ${available ? 'available' : 'full'}`;
@@ -48,8 +46,7 @@ function loadAdminRooms() {
         <div class="room-floor">${room.floor}</div>
         <span class="room-status ${available ? 'status-available' : 'status-full'}">
           ${available ? '🟢 Available' : '🔴 Full'}
-        </span>
-        <br/>
+        </span><br/>
         <button class="toggle-btn ${available ? 'mark-full' : 'mark-available'}"
           onclick="toggleRoom('${room.id}', ${available})">
           ${available ? 'Mark as Full' : 'Mark as Available'}
@@ -62,12 +59,10 @@ function loadAdminRooms() {
 function loadAdminSlots() {
   const grid = document.getElementById('adminSlotsGrid');
   grid.innerHTML = '';
-
   slots.forEach(slot => {
     const card = document.createElement('div');
     card.className = 'admin-slot-card';
     grid.appendChild(card);
-
     onSnapshot(doc(db, "slots", slot), (snap) => {
       const count = snap.data()?.count || 0;
       let badge = count <= 5 ? '🟢' : count <= 10 ? '🟡' : '🔴';
@@ -83,13 +78,14 @@ window.toggleRoom = async (roomId, currentStatus) => {
   const msg = document.getElementById('adminMessage');
   try {
     await updateDoc(doc(db, "rooms", roomId), { available: !currentStatus });
-    msg.style.color = '#4ade80';
+    msg.style.color = 'var(--green)';
     msg.textContent = `Room ${roomId} updated!`;
     setTimeout(() => msg.textContent = '', 2000);
   } catch(e) {
+    msg.style.color = 'var(--red)';
     msg.textContent = e.message;
   }
-}
+};
 
 window.resetAllSlots = async () => {
   const msg = document.getElementById('adminMessage');
@@ -99,23 +95,24 @@ window.resetAllSlots = async () => {
       batch.update(doc(db, "slots", slot), { count: 0 });
     });
     await batch.commit();
-    msg.style.color = '#4ade80';
+    msg.style.color = 'var(--green)';
     msg.textContent = '✅ All slot counts reset!';
     setTimeout(() => msg.textContent = '', 2000);
   } catch(e) {
+    msg.style.color = 'var(--red)';
     msg.textContent = e.message;
   }
-}
+};
 
 window.showTab = (tab) => {
-  document.getElementById('bedsTab').style.display = tab === 'beds' ? 'block' : 'none';
+  document.getElementById('bedsTab').style.display  = tab === 'beds'  ? 'block' : 'none';
   document.getElementById('queueTab').style.display = tab === 'queue' ? 'block' : 'none';
   document.querySelectorAll('.admin-tabs .tab-btn').forEach((btn, i) => {
     btn.classList.toggle('active', (i === 0 && tab === 'beds') || (i === 1 && tab === 'queue'));
   });
-}
+};
 
 window.logoutUser = async () => {
   await signOut(auth);
   window.location.href = 'index.html';
-}
+};

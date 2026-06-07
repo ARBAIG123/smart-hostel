@@ -13,23 +13,29 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById('qrRoll').textContent = `Roll: ${data.roll}`;
 
   const qrData = JSON.stringify({
-    uid: user.uid,
-    name: data.name,
-    roll: data.roll,
+    uid:   user.uid,
+    name:  data.name,
+    roll:  data.roll,
     email: data.email
   });
 
   new QRCode(document.getElementById('qrCode'), {
-    text: qrData,
-    width: 220,
-    height: 220,
-    colorDark: "#1a2f5a",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.H
+    text:           qrData,
+    width:          220,
+    height:         220,
+    colorDark:      "#1a2f5a",
+    colorLight:     "#ffffff",
+    correctLevel:   QRCode.CorrectLevel.H
   });
+
+  // show booked slot if any
+  const today = new Date().toDateString();
+  if (data.selectedSlot && data.slotDate === today) {
+    document.getElementById('qrStatus').textContent = `✅ Slot booked: ${data.selectedSlot}`;
+  }
 });
 
 window.logoutUser = async () => {
   await signOut(auth);
   window.location.href = 'index.html';
-}
+};

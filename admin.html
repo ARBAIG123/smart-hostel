@@ -14,20 +14,20 @@
     <nav class="navbar">
       <div class="nav-logo">🏨 Smart Hostel | Admin</div>
       <div class="nav-links">
-        <a href="scanner.html" style="color:#4f8ef7;text-decoration:none;font-size:0.95rem;">📷 Scanner</a>
-<button class="logout-btn" onclick="logoutUser()">Logout</button>
+        <a href="scanner.html">📷 Scanner</a>
+        <button class="logout-btn" onclick="logoutUser()">Logout</button>
       </div>
     </nav>
 
     <!-- Header -->
     <div class="dash-header">
       <h1>⚙️ Admin Control Panel</h1>
-      <p>Manage bed availability and reset queue slots</p>
+      <p>Manage bed availability and reset canteen queue slots</p>
     </div>
 
     <!-- Tabs -->
     <div class="admin-tabs">
-      <button class="tab-btn active" onclick="showTab('beds')">🛏️ Manage Beds</button>
+      <button class="tab-btn active" onclick="showTab('beds')">🛏️ Manage Rooms</button>
       <button class="tab-btn" onclick="showTab('queue')">⏱️ Manage Queue</button>
     </div>
 
@@ -38,8 +38,8 @@
 
     <!-- Queue Tab -->
     <div id="queueTab" class="admin-section" style="display:none;">
-      <div style="text-align:center; margin-bottom:1rem;">
-        <button class="primary-btn" style="max-width:300px;" onclick="resetAllSlots()">🔄 Reset All Slot Counts</button>
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <button class="primary-btn" style="max-width:280px;" onclick="resetAllSlots()">🔄 Reset All Slot Counts</button>
       </div>
       <div class="slots-grid" id="adminSlotsGrid"></div>
     </div>

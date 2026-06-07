@@ -20,29 +20,26 @@
 
     <div class="dash-header">
       <h1>📷 Canteen ID Scanner</h1>
-      <p>Scan student ID card barcode to check them in</p>
+      <p>Scan student QR code to verify and check them in</p>
     </div>
 
     <div class="scanner-container">
 
-      <!-- Current Slot Info -->
       <div class="current-slot-banner">
         ⏰ Current slot: <strong id="currentSlotText">Detecting...</strong>
       </div>
 
-      <!-- Scanner Box -->
       <div class="scanner-card">
         <div id="scannerView"></div>
-        <p class="qr-hint" id="scannerHint">Point camera at student ID card barcode</p>
+        <p class="qr-hint" id="scannerHint">Point camera at student QR code</p>
       </div>
 
-      <!-- Result Box -->
       <div class="scan-result" id="scanResult" style="display:none;">
         <div class="result-icon" id="resultIcon">✅</div>
         <p class="result-name" id="resultName"></p>
         <p class="result-roll" id="resultRoll"></p>
         <p class="result-slot" id="resultSlot"></p>
-        <button class="primary-btn" style="max-width:200px;margin:1rem auto;" onclick="resetScanner()">Scan Next</button>
+        <button class="primary-btn" style="max-width:200px;margin:1rem auto;display:block;" onclick="resetScanner()">Scan Next</button>
       </div>
 
     </div>

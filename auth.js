@@ -2,70 +2,64 @@ import { auth, db } from "./firebase.js";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
 import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
-window.showLogin = () => {
-  document.getElementById('loginForm').style.display = 'block';
-  document.getElementById('signupForm').style.display = 'none';
-  document.getElementById('loginTab').classList.add('active');
-  document.getElementById('signupTab').classList.remove('active');
-}
-
-window.showSignup = () => {
-  document.getElementById('signupForm').style.display = 'block';
-  document.getElementById('loginForm').style.display = 'none';
-  document.getElementById('signupTab').classList.add('active');
-  document.getElementById('loginTab').classList.remove('active');
-}
-
-window.registerUser = async () => {
-  const name = document.getElementById('signupName').value;
-  const roll = document.getElementById('signupRoll').value;
-  const email = document.getElementById('signupEmail').value;
-  const password = document.getElementById('signupPassword').value;
-  const role = 'student';
+// ── helpers ──
+function showMsg(text, isError = true) {
   const msg = document.getElementById('authMessage');
+  msg.textContent = text;
+  msg.style.color = isError ? 'var(--red)' : 'var(--green)';
+  msg.classList.remove('shake');
+  void msg.offsetWidth; // reflow to retrigger animation
+  if (isError) msg.classList.add('shake');
+}
+
+// ── register ──
+window.registerUser = async () => {
+  const name     = document.getElementById('signupName').value.trim();
+  const roll     = document.getElementById('signupRoll').value.trim();
+  const email    = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value;
+
+  // get selected role from chip
+  const roleChip = document.querySelector('.role-chip.selected');
+  const role = roleChip ? roleChip.dataset.role : 'student';
+
+  if (!name || !roll || !email || !password) {
+    showMsg('Please fill in all fields.'); return;
+  }
+  if (password.length < 8) {
+    showMsg('Password must be at least 8 characters.'); return;
+  }
 
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     await setDoc(doc(db, "users", cred.user.uid), { name, roll, email, role });
-    msg.style.color = '#4ade80';
-    msg.textContent = 'Account created! Redirecting...';
+    showMsg('✅ Account created! Redirecting...', false);
     setTimeout(() => {
       window.location.href = role === 'admin' ? 'admin.html' : 'dashboard.html';
     }, 1500);
   } catch (e) {
-    msg.textContent = e.message;
+    showMsg(e.message);
   }
-}
+};
 
+// ── login ──
 window.loginUser = async () => {
-  const email = document.getElementById('loginEmail').value;
+  const email    = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
-  const msg = document.getElementById('authMessage');
+
+  if (!email || !password) {
+    showMsg('Please enter your email and password.'); return;
+  }
 
   try {
-    const cred = await signInWithEmailAndPassword(auth, email, password);
+    const cred    = await signInWithEmailAndPassword(auth, email, password);
     const userDoc = await getDoc(doc(db, "users", cred.user.uid));
-    const role = userDoc.data()?.role || 'student';
-    msg.style.color = '#4ade80';
-    msg.textContent = 'Login successful! Redirecting...';
+    const role    = userDoc.data()?.role || 'student';
+    showMsg('✅ Login successful! Redirecting...', false);
     setTimeout(() => {
       window.location.href = role === 'admin' ? 'admin.html' : 'dashboard.html';
-    }, 1500);
+    }, 1200);
   } catch (e) {
-    msg.textContent = e.message;
+    showMsg(e.message);
   }
-}
-window.toggleTheme = () => {
-  document.body.classList.toggle('dark');
-  const btn = document.getElementById('themeToggle');
-  btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-}
-
-// Remember theme on reload
-window.addEventListener('load', () => {
-  if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark');
-    document.getElementById('themeToggle').textContent = '☀️';
-  }
-});
+};

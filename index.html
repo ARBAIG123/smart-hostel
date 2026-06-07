@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Smart Hostel | Login</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
 
   <div class="login-page">
@@ -14,14 +15,14 @@
     <!-- LEFT PANEL -->
     <div class="left-panel">
       <div class="left-content">
-        <img src="logo.png" alt="VCE Logo" class="college-logo" />
+        <img src="logo.png" alt="VCE Logo" class="college-logo"/>
         <h1 class="college-name">Vardhaman College of Engineering</h1>
         <p class="college-tagline">Empowering Students with Smart Campus Solutions</p>
         <div class="feature-list">
-          <div class="feature-item">⏱️ Skip canteen queues</div>
+          <div class="feature-item">⏱️ Skip canteen queues with time slots</div>
           <div class="feature-item">🟢 Real-time crowd levels</div>
-          <div class="feature-item">🛏️ Live bed availability</div>
-          <div class="feature-item">📱 Access from anywhere</div>
+          <div class="feature-item">🛏️ Live bed & room availability</div>
+          <div class="feature-item">📱 QR-based contactless check-in</div>
         </div>
       </div>
     </div>
@@ -29,6 +30,7 @@
     <!-- RIGHT PANEL -->
     <div class="right-panel">
       <div class="auth-box">
+
         <div class="auth-header">
           <h2>Smart Hostel</h2>
           <p>QueueLess + Bed Vacancy System</p>
@@ -39,24 +41,53 @@
           <button class="tab-btn" id="signupTab" onclick="showSignup()">Sign Up</button>
         </div>
 
-        <!-- Login Form -->
+        <!-- ── LOGIN FORM ── -->
         <div id="loginForm">
-          <input type="email" id="loginEmail" placeholder="College Email" />
-          <input type="password" id="loginPassword" placeholder="Password" />
+          <div class="input-wrap">
+            <input type="email" id="loginEmail" placeholder="College Email"/>
+          </div>
+          <div class="input-wrap">
+            <input type="password" id="loginPassword" placeholder="Password" class="has-icon"/>
+            <button class="eye-btn" type="button" onclick="toggleEye('loginPassword', this)" aria-label="Show/hide password">
+              <svg id="eyeLogin" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
           <button class="primary-btn" onclick="loginUser()">Login</button>
         </div>
 
-        <!-- Signup Form -->
+        <!-- ── SIGNUP FORM ── -->
         <div id="signupForm" style="display:none;">
-          <input type="text" id="signupName" placeholder="Full Name" />
-          <input type="text" id="signupRoll" placeholder="Roll Number" />
-          <input type="email" id="signupEmail" placeholder="College Email" />
-          <input type="password" id="signupPassword" placeholder="Password" />
+          <div class="input-wrap">
+            <input type="text" id="signupName" placeholder="Full Name"/>
+          </div>
+          <div class="input-wrap">
+            <input type="text" id="signupRoll" placeholder="Roll Number (e.g. 22CS123)"/>
+          </div>
+          <div class="input-wrap">
+            <input type="email" id="signupEmail" placeholder="College Email"/>
+          </div>
+          <div class="input-wrap">
+            <input type="password" id="signupPassword" placeholder="Password (min 8 chars)" class="has-icon"/>
+            <button class="eye-btn" type="button" onclick="toggleEye('signupPassword', this)" aria-label="Show/hide password">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <!-- role selector -->
+          <div class="role-row">
+            <div class="role-chip selected" data-role="student" onclick="pickRole(this)">🎓 Student</div>
+            <div class="role-chip" data-role="warden" onclick="pickRole(this)">🏫 Warden</div>
+            <div class="role-chip" data-role="admin" onclick="pickRole(this)">⚙️ Admin</div>
+          </div>
           <button class="primary-btn" onclick="registerUser()">Create Account</button>
         </div>
 
         <p id="authMessage" class="message"></p>
-
         <p class="footer-note">Smart Hostel © Vardhaman College of Engineering</p>
       </div>
     </div>
@@ -64,5 +95,56 @@
   </div>
 
   <script type="module" src="auth.js"></script>
+
+  <script>
+    // ── eye toggle (plain JS, no module needed) ──
+    window.toggleEye = (inputId, btn) => {
+      const inp = document.getElementById(inputId);
+      const isHidden = inp.type === 'password';
+      inp.type = isHidden ? 'text' : 'password';
+      btn.querySelector('svg').innerHTML = isHidden
+        ? `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22"/>`
+        : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+      btn.style.color = isHidden ? 'var(--accent)' : 'var(--muted)';
+    };
+
+    // ── role chip ──
+    window.pickRole = (el) => {
+      document.querySelectorAll('.role-chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+    };
+
+    // ── tab switch ──
+    window.showLogin = () => {
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('signupForm').style.display = 'none';
+      document.getElementById('loginTab').classList.add('active');
+      document.getElementById('signupTab').classList.remove('active');
+      document.getElementById('authMessage').textContent = '';
+    };
+
+    window.showSignup = () => {
+      document.getElementById('signupForm').style.display = 'block';
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('signupTab').classList.add('active');
+      document.getElementById('loginTab').classList.remove('active');
+      document.getElementById('authMessage').textContent = '';
+    };
+
+    // ── theme ──
+    window.toggleTheme = () => {
+      document.body.classList.toggle('light');
+      const btn = document.getElementById('themeToggle');
+      btn.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    };
+
+    window.addEventListener('load', () => {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light');
+        document.getElementById('themeToggle').textContent = '🌙';
+      }
+    });
+  </script>
 </body>
 </html>

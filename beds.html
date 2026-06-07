@@ -14,7 +14,9 @@
     <nav class="navbar">
       <div class="nav-logo">🏨 Smart Hostel</div>
       <div class="nav-links">
+        <span id="welcomeUser"></span>
         <a href="dashboard.html">🍽️ Canteen Queue</a>
+        <a href="qr.html">📱 My QR</a>
         <button class="logout-btn" onclick="logoutUser()">Logout</button>
       </div>
     </nav>
@@ -22,22 +24,25 @@
     <!-- Header -->
     <div class="dash-header">
       <h1>🛏️ Bed Vacancy</h1>
-      <p>Real-time room-wise bed availability</p>
+      <p>Real-time room-wise availability across all floors</p>
     </div>
 
-    <!-- Summary Bar -->
-    <div class="summary-bar">
-      <div class="summary-card">
-        <span id="totalBeds">0</span>
-        <label>Total Beds</label>
+    <!-- Stat Cards -->
+    <div class="stats-row">
+      <div class="stat-card blue">
+        <div class="stat-label">Total Rooms</div>
+        <div class="stat-val blue" id="totalRooms">12</div>
+        <div class="stat-sub">Across all floors</div>
       </div>
-      <div class="summary-card">
-        <span id="availableBeds" style="color:#4ade80;">0</span>
-        <label>Available</label>
+      <div class="stat-card green">
+        <div class="stat-label">Rooms Available</div>
+        <div class="stat-val green" id="availableRooms">0</div>
+        <div class="stat-sub">Beds free inside</div>
       </div>
-      <div class="summary-card">
-        <span id="occupiedBeds" style="color:#f87171;">0</span>
-        <label>Occupied</label>
+      <div class="stat-card red">
+        <div class="stat-label">Rooms Full</div>
+        <div class="stat-val red" id="occupiedRooms">0</div>
+        <div class="stat-sub">No beds left</div>
       </div>
     </div>
 
